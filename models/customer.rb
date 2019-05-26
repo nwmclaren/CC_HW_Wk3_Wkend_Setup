@@ -44,6 +44,19 @@ attr_accessor :name, :funds
       return result
   end
 
+  def customer_tickets()
+    sql = "SELECT COUNT (customer_id) FROM tickets
+    INNER JOIN customers
+    ON tickets.customer_id = customers.id
+    WHERE customer_id = $1"
+    values = [@id]
+    tickets = SqlRunner.run(sql, values)
+    result = tickets
+    # result = movies.map { |ticket|
+    # Ticket.new(ticket) }
+    # return result
+  end
+
   def reduce_funds(price)
     @funds -= price
     sql = "UPDATE customers SET (name, funds) = ($1, $2) WHERE id = $3"
