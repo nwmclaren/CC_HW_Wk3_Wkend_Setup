@@ -35,7 +35,8 @@ attr_accessor :name, :funds
       sql = "SELECT films.* FROM films
       INNER JOIN tickets
       ON tickets.film_id = films.id
-      WHERE customer_id = $1"
+      WHERE customer_id = $1
+      ORDER BY films.title"
       values = [@id]
       movies = SqlRunner.run(sql, values)
       result = movies.map { |movie|
